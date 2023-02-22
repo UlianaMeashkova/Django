@@ -3,6 +3,7 @@
 
 # Virtual environments
 .venv/
+.env/
 
 # PyEnv
 .python-version
