@@ -1,6 +1,6 @@
 # PyCharm files
 .idea/
-
+.env
 # Virtual environments
 .venv/
 .env/
@@ -12,3 +12,4 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
