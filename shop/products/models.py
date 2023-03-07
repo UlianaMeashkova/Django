@@ -35,4 +35,6 @@ class Purchase(models.Model):
 
     def __str__(self):
         return f"Purchase: {self.user} - {self.product} - {self.count}"
+    
+    
 

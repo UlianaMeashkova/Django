@@ -19,4 +19,10 @@ class PurchaseAdmin(admin.ModelAdmin):
    readonly_fields = ("created_at",)
    search_fields = ("user__email", "product__title")
 
-# Register your models here.
+# @admin.register(Adress)
+# class AdressAdmin(admin.ModelAdmin):
+#    list_display = ("user", "product", "count", "created_at")
+#    fields = ("user", "product", "count", "created_at")
+#    readonly_fields = ("created_at",)
+#    search_fields = ("user__email", "product__title")
+# # Register your models here.
