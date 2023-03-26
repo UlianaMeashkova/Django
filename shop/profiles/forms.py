@@ -10,6 +10,7 @@ class RegisterForm(forms.Form):
     )
     age = forms.IntegerField(min_value=18, required=False)
 
+
 class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(

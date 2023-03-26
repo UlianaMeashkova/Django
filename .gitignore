@@ -1,9 +1,9 @@
 # PyCharm files
 .idea/
-.env
+
 # Virtual environments
 .venv/
-.env/
+.env
 
 # PyEnv
 .python-version
@@ -12,4 +12,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+shop/media/
 

@@ -16,9 +16,6 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path
-
-
-
 from products.views import index
 from profiles.views import profiles, register, login_view, logout_view
 
