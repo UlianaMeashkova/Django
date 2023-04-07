@@ -6,8 +6,8 @@ from products.models import Product
 class ProductModelSerializer(serializers.HyperlinkedModelSerializer):
 
     has_image = serializers.SerializerMethodField()
-    purchases_count = serializers.IntegerField()
-    purchases_total = serializers.IntegerField()
+    purchases_count = serializers.IntegerField(read_only=True)
+    purchases_total = serializers.IntegerField(read_only=True)
 
     def get_has_image(self, obj: Product) -> bool:
         return bool(obj.image)
