@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import status, serializers
 from rest_framework.authtoken.models import Token
-from rest_framework.generics import CreateAPIView, DestroyAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -12,6 +12,27 @@ from api.users.serializers import RegisterSerializer, LoginSerializer
 
 class RegisterView(CreateAPIView):
     serializer_class = RegisterSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = User(
+            email=serializer.validated_data["email"],
+            username=serializer.validated_data["email"],
+        )
+        user.set_password(serializer.validated_data["password"])
+        user.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+
+class RegisterFullView(CreateAPIView):
+    serializer_class = RegisterSerializer
+
+    def get_serializer(self, *args, **kwargs):
+        return self.serializer_class(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

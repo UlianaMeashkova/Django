@@ -34,8 +34,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework.authtoken',
     'rest_framework',
+    'rest_framework.authtoken',
     'crispy_forms',
     'crispy_bootstrap5',
     'profiles',
@@ -87,6 +87,16 @@ DATABASES = {
         "PASSWORD": os.getenv("POSTGRES_PASSWORD", "django"),
         "HOST": "localhost",
         "PORT": 5432,
+    }
+}
+
+# https://docs.djangoproject.com/en/4.1/ref/settings/#caches
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
     }
 }
 
@@ -171,3 +181,13 @@ LOGGING = {
 
 MY_CUSTOM_VARIABLE = "Hello world!"
 MY_ENV_VARIABLE = os.getenv("MY_ENV_VARIABLE", None)
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "PAGE_SIZE": 10,
+}

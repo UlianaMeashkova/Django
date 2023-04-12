@@ -1,4 +1,5 @@
 import pytest
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.test import APIClient
 
 from products.models import Product
@@ -12,7 +13,7 @@ class TestProductsApi:
     def test_index(self):
         response = self.client.get("/api/products/")
         assert response.status_code == 200
-        assert len(response.json()) == 0
+        assert response.json().get("count") == 0
 
         response = self.client.post("/api/products/", data={
             "title": "Nokia 666",
@@ -29,6 +30,7 @@ class TestProductsApi:
         assert response.status_code == 200
         assert response.json()["title"] == "Nokia 666"
 
+        TokenAuthentication
         response = self.client.delete(f"/api/products/{product.id}/")
         assert response.status_code == 204
         assert not Product.objects.exists()
