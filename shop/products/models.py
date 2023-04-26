@@ -17,6 +17,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to="products/", blank=True, null=True)
     color = models.CharField(max_length=32, choices=COLOR_CHOICES, default="RED")
     price = models.DecimalField(default=Decimal("0"), decimal_places=5, max_digits=10)
+    price_usd = models.DecimalField(default=Decimal("0"), decimal_places=5, max_digits=10)
     excerpt = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(

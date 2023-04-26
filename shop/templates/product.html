@@ -1,16 +1,15 @@
 {% load static %}
 
 <div class="card">
-  {% if product.image %}
-     <img src="{{ product.image.url }}" class ="card-img-top" alt="{{product.title}}">
-  {% else %}
-     <img src="{% static 'img/multimedia-icon-16.png' %}" class ="card-img-top" alt="{{product.title}}">
-  {% endif %}
-
-    <div class="card-body">
-      <h5 class="card-title">{{ product.title }}</h5>
-      <p class="card-text">Color: {{ product.color }}</p>
-      <p class="card-text">Price: {{ product.price }}</p>
-      
-    </div>
-   </div>
+ {% if product.image %}
+   <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+ {% else %}
+   <img src="{% static 'img/no-image.png' %}" class="card-img-top" alt="{{ product.title }}">
+ {% endif %}
+ <div class="card-body">
+   <h5 class="card-title">{{ product.title }}</h5>
+   <p class="card-text">Color: {{ product.color }}</p>
+   <p class="card-text">Price: {{ product.price }} BYN</p>
+   <p class="card-text">Price: {{ product.price_usd }} USD</p>
+ </div>
+</div>

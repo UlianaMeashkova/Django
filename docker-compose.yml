@@ -1,0 +1,46 @@
+version: '3.3'
+services:
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=django
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=django
+
+  redis:
+    image: redis:latest
+
+  django:
+    image: django:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app/
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - POSTGRES_NAME=django
+      - POSTGRES_USER=django
+      - POSTGRES_PASS=django
+      - POSTGRES_HOST=postgres
+      - REDIS_HOST=redis
+    command: |
+      python shop/manage.py runserver 0.0.0.0:8000
+
+  worker:
+    image: django:latest
+    volumes:
+      - ./:/app/
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      - POSTGRES_NAME=django
+      - POSTGRES_USER=django
+      - POSTGRES_PASS=django
+      - POSTGRES_HOST=postgres
+      - REDIS_HOST=redis
+    command: |
+      python shop/manage.py rqworker
