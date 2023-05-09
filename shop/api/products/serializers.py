@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
 
 from products.models import Product
 
@@ -20,40 +19,15 @@ class ProductModelSerializer(serializers.HyperlinkedModelSerializer):
             "image", "color", "price", "created_at"
         ]
 
-    def __init__(self, data, *args, **kwargs):
-        super().__init__(data, *args, **kwargs)
 
-        if data is not None:
-            self.initial_data = data
-
-        self._validated_data = {}
-        self._errors = {}
-
-    def to_internal_value(self, data: dict = None) -> dict:
-        result = {}
-        for field in data:
-            primitive_value = field.get_value(data)
-            validated_value = field.run_validation(primitive_value)
-            result[field.source_attrs] = validated_value
-        return result
-
-    def validate(self, data: dict = None):
-        return data
-
-    def run_validation(self, data: dict = None) -> dict:
-        value = self.to_internal_value(data)
-        return self.validate(value)
-
-    def is_valid(self, raise_exception: bool = False):
-        try:
-            self._validated_data = self.run_validation(self.initial_data)
-        except ValidationError as exc:
-            self._validated_data = {}
-            self._errors = exc.detail
-        else:
-            self._errors = {}
-
-        if self._errors and raise_exception:
-            raise ValidationError(self.errors)
-
-        return not bool(self._errors)
+class ProductSerializer(serializers.Serializer):
+    external_id = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    title = serializers.CharField(max_length=255)
+    image = serializers.ImageField(allow_empty_file=True)
+    color = serializers.CharField(max_length=32)
+    price = serializers.DecimalField(decimal_places=5, max_digits=10)
+    price_usd = serializers.DecimalField(decimal_places=5, max_digits=10)
+    excerpt = serializers.CharField(allow_blank=True, allow_null=True)
+    description = serializers.CharField(allow_blank=True, allow_null=True)
+    created_at = serializers.DateTimeField()
+    purchases_total = serializers.DecimalField(decimal_places=5, max_digits=10)
