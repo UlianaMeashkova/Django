@@ -20,16 +20,14 @@ from products.views import index
 from profiles.views import profiles, register, login_view, logout_view
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('api.urls', namespace="api")),
-    path('api/auth/', include(
-        'rest_framework.urls', namespace='rest_framework'
-    )),
-    path('profiles/', profiles, name="profiles"),
-    path('register/', register, name="register"),
-    path('login/', login_view, name="login"),
-    path('logout/', logout_view, name="logout"),
-    path('', index, name="index"),
+    path("admin/", admin.site.urls),
+    path("api/", include("api.urls", namespace="api")),
+    path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("profiles/", profiles, name="profiles"),
+    path("register/", register, name="register"),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
+    path("", index, name="index"),
 ]
 
 if settings.DEBUG:
@@ -39,4 +37,3 @@ if settings.DEBUG:
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

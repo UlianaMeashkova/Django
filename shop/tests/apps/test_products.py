@@ -2,6 +2,7 @@ import requests
 from django.test.client import Client
 import pytest
 
+
 def test_products_index():
     response = requests.get("http://127.0.0.1:8000")
     assert response.status_code == 200

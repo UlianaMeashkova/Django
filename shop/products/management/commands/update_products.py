@@ -11,6 +11,7 @@ from products.models import Product
 
 logger = logging.getLogger(__name__)
 
+
 @job
 def update_products():
     response = requests.get("https://www.nbrb.by/api/exrates/rates?periodicity=0")
@@ -25,9 +26,7 @@ def update_products():
             product.price_usd = product.price / Decimal(item["Cur_OfficialRate"])
             product.save()
 
-        Product.objects.update(
-            price_usd=F("price") * Decimal(item["Cur_OfficialRate"])
-        )
+        Product.objects.update(price_usd=F("price") * Decimal(item["Cur_OfficialRate"]))
 
 
 class Command(BaseCommand):

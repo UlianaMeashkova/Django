@@ -4,7 +4,6 @@ from products.models import Product
 
 
 class ProductModelSerializer(serializers.HyperlinkedModelSerializer):
-
     has_image = serializers.SerializerMethodField()
     purchases_count = serializers.IntegerField(read_only=True)
     purchases_total = serializers.IntegerField(read_only=True)
@@ -15,13 +14,22 @@ class ProductModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
         fields = [
-            "id", "title", "has_image", "purchases_count", "purchases_total",
-            "image", "color", "price", "created_at"
+            "id",
+            "title",
+            "has_image",
+            "purchases_count",
+            "purchases_total",
+            "image",
+            "color",
+            "price",
+            "created_at",
         ]
 
 
 class ProductSerializer(serializers.Serializer):
-    external_id = serializers.CharField(max_length=255, allow_blank=True, allow_null=True)
+    external_id = serializers.CharField(
+        max_length=255, allow_blank=True, allow_null=True
+    )
     title = serializers.CharField(max_length=255)
     image = serializers.ImageField(allow_empty_file=True)
     color = serializers.CharField(max_length=32)
